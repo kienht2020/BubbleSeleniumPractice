@@ -36,6 +36,12 @@ public class LoginPage extends BasePage {
     public void goToLoginPage(){
         automation.navigate(URLs.BASE_URL);
     }
+    public String getLoginPageUrl(){
+        return automation.getCurrentURL();
+    }
+    public String getLoginPageTitle(){
+        return automation.getTitle();
+    }
 
 }
 

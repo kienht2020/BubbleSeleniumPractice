@@ -9,7 +9,7 @@ public class ForFunTest extends BaseTest {
     public void Test1() {
         loginPage.goToLoginPage();
         loginPage.loginFunction(UserAccount.USER_NAME, UserAccount.PASSWORD);
-        System.out.println(driver.findElement(By.xpath("//*[@id=\"app\"]/div/section/aside/div/ul/li[1]/span[2]/span")).getText());
+        System.out.println(loginPage.getLoginPageTitle());
 
     }
 
