@@ -22,9 +22,6 @@ public class DriverBase {
         });
     }
 
-    public static WebDriver getDriver(){
-        return driverThread.get().getDriver();
-    }
     public static WebDriver getDriver(String browserName){
         return driverThread.get().getDriver(browserName);
     }
