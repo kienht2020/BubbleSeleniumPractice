@@ -32,13 +32,35 @@ public class Automation {
             e.printStackTrace();
         }
     }
+    public boolean waitForControl(By locator, long timeout) {
+        boolean isExist = false;
+        try {
+            //Declare and initialise a fluent wait
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                    .withTimeout(Duration.ofSeconds(timeout))
+                    .pollingEvery(Duration.ofSeconds(1))
+                    .ignoring(NoSuchElementException.class);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            driver.findElements(locator);
+            isExist = true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            isExist = false;
+        }
+        return isExist;
+    }
+    public boolean waitForControl(By locator) {
+
+        int timeout = Settings.getObjecWait();
+        return waitForControl(locator, timeout);
+
+    }
     public WebElement findElement(By locator, long timeout){
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofSeconds(timeout))
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
-
-         element = wait.until(
+        element = wait.until(
                 new Function<WebDriver, WebElement>() {
                     public WebElement apply(WebDriver driver) {
                         return driver.findElement(locator);
@@ -53,7 +75,7 @@ public class Automation {
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
 
-         listElements = wait.until(
+        listElements = wait.until(
                 new Function<WebDriver,List<WebElement>>() {
                     public List<WebElement> apply(WebDriver driver) {
                         return driver.findElements(locator);
