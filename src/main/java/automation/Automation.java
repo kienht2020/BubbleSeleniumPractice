@@ -17,6 +17,7 @@ import java.util.function.Function;
 public class Automation {
     private  WebDriver driver;
     private WebElement element = null;
+    private List<WebElement> listElements = null;
     Actions actions;
 
 
@@ -37,7 +38,7 @@ public class Automation {
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
 
-        WebElement element = wait.until(
+         element = wait.until(
                 new Function<WebDriver, WebElement>() {
                     public WebElement apply(WebDriver driver) {
                         return driver.findElement(locator);
@@ -52,7 +53,7 @@ public class Automation {
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
 
-        List<WebElement> listElements = wait.until(
+         listElements = wait.until(
                 new Function<WebDriver,List<WebElement>>() {
                     public List<WebElement> apply(WebDriver driver) {
                         return driver.findElements(locator);
