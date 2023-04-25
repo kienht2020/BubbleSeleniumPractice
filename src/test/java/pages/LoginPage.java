@@ -1,14 +1,11 @@
 package pages;
 
+import data.URLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
-import java.util.List;
-
-public class LoginPage extends PageBase {
+public class LoginPage extends BasePage {
     By usernameXpath = By.xpath("//input[contains(@id,'username')]");
     By passwordXpath = By.xpath("//input[contains(@id,'password')]");
     By loginBtnXpath = By.xpath("//button[(@type='submit')]");
@@ -32,12 +29,13 @@ public class LoginPage extends PageBase {
         enterUsername(username);
         enterPassword(password);
         clickLoginBtn();
-        automation.sleep(1000);
     }
     public void checkLoginFormDisplayed(){
         Assert.assertTrue(automation.isElementDisplayed(loginFormXpath));
     }
-
+    public void goToLoginPage(){
+        automation.navigate(URLs.BASE_URL);
+    }
 
 }
 
