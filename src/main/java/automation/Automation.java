@@ -145,20 +145,17 @@ public class Automation {
     public void enter(By locator, String value) {
         element = findElement(locator);
         element.click();
-        sleep(500);
         clearFieldByJS(element);
         element.sendKeys(value);
     }
     public void enter(WebElement element, String value) {
         element.click();
-        sleep(500);
         clearFieldByJS(element);
         element.sendKeys(value);
     }
     public void clear(By locator){
         element = findElement(locator);
         element.clear();
-        sleep(500);
     }
     public boolean isElementExists(By locator)
     {

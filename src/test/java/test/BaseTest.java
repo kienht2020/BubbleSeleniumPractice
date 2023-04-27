@@ -2,10 +2,9 @@ package test;
 
 import DriverManager.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import java.util.List;
 public class BaseTest  {
     protected  WebDriver driver;
     protected LoginPage loginPage;
+    protected SoftAssert softAssert;
     private static List<DriverManager> webdriverThreadPool = Collections.synchronizedList(new ArrayList<DriverManager>());
     private static ThreadLocal<DriverManager> driverThread;
 
@@ -35,8 +35,6 @@ public class BaseTest  {
         driver = getDriver(browserName);
         loginPage = new LoginPage(driver);
     }
-
-
     @AfterSuite(alwaysRun = true)
     public void afterSuite(){
         for(DriverManager driver : webdriverThreadPool){
