@@ -1,8 +1,8 @@
 package test;
 
 import DriverManager.DriverManager;
+import automation.Navigate;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
@@ -15,6 +15,7 @@ public class BaseTest  {
     protected  WebDriver driver;
     protected LoginPage loginPage;
     protected SoftAssert softAssert;
+    protected Navigate navigate;
     private static List<DriverManager> webdriverThreadPool = Collections.synchronizedList(new ArrayList<DriverManager>());
     private static ThreadLocal<DriverManager> driverThread;
 
@@ -33,7 +34,13 @@ public class BaseTest  {
     @Parameters({ "browser" })
     public void beforeClass(String browserName) {
         driver = getDriver(browserName);
+        navigate = new Navigate(driver);
         loginPage = new LoginPage(driver);
+
+    }
+    @BeforeMethod(alwaysRun = true)
+    public void setUp(){
+        softAssert = new SoftAssert();
     }
     @AfterSuite(alwaysRun = true)
     public void afterSuite(){

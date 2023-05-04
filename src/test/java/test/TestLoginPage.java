@@ -1,49 +1,40 @@
 package test;
 
-import constants.Login;
+import data.Login;
+import data.URLs;
 import data.UserAccount;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class TestLoginPage extends BaseTest {
-    @Test(priority = 0)
-    public void loginWithoutUsernameAndPassword() {
-        loginPage.goToLoginPage();
+    @Test(priority = 0, description = "Verify that the user is not able to login with empty username and password")
+    public void TC_LOG_001() {
+        navigate.navigateTo(URLs.BASE_URL);
+        loginPage.fillData("","");
         loginPage.clickLoginBtn();
-        // check if there are any warnings from username field
-        loginPage.checkIfTheUsernameErrMsgDisplayCorrectly();
-        loginPage.checkIfWarningUsernameEmpty();
-        //check if there are any warnings from password field
-        loginPage.checkIfThePasswordErrMsgDisplayCorrectly();
-        loginPage.checkIfWarningPasswordEmpty();
-        loginPage.getAllAssert();
+        softAssert.assertEquals(loginPage.getUsernameEmptyMsgErr(), Login.USERNAME_EMPTY_ERR_MSG,"The empty username error message is wrong.");
+        softAssert.assertEquals(loginPage.getPasswordEmptyMsgErr(), Login.PASSWORD_EMPTY_ERR_MSG,"The empty password error message is wrong.");
+        softAssert.assertAll();
     }
-    @Test(priority = 1)
-    public void loginWithoutPassword(){
+    @Test(priority = 1, description = "Verify that the user is not able to login with empty password")
+    public void TC_LOG_002(){
         //refresh page
-        loginPage.refreshPage();
+        navigate.refreshPage();
         //enter username
-        loginPage.enterUsername(UserAccount.USER_NAME);
+        loginPage.fillData(UserAccount.USER_NAME,"");
         // click login button
         loginPage.clickLoginBtn();
-        //check if there are any warnings from password field
-        loginPage.checkIfThePasswordErrMsgDisplayCorrectly();
-        loginPage.checkIfWarningPasswordEmpty();
-        loginPage.getAllAssert();
-
+        softAssert.assertEquals(loginPage.getPasswordEmptyMsgErr(), Login.PASSWORD_EMPTY_ERR_MSG,"The empty password error message is wrong.");
+        softAssert.assertAll();
     }
-    @Test(priority = 2)
-    public void loginWithoutUser(){
+    @Test(priority = 2,description = "Verify the user is not able to login with empty username")
+    public void TC_LOG_003(){
         //refresh page
-        loginPage.refreshPage();
+        navigate.refreshPage();
         //enter username
-        loginPage.enterPassword(UserAccount.PASSWORD);
+        loginPage.fillData("",UserAccount.PASSWORD);
         // click login button
         loginPage.clickLoginBtn();
-        //check if there are any warnings from password field
-        loginPage.checkIfTheUsernameErrMsgDisplayCorrectly();
-        loginPage.checkIfWarningUsernameEmpty();
-        loginPage.getAllAssert();
+        softAssert.assertEquals(loginPage.getUsernameEmptyMsgErr(), Login.USERNAME_EMPTY_ERR_MSG,"The empty username error message is wrong.");
+        softAssert.assertAll();
     }
 }
