@@ -5,7 +5,7 @@ import data.URLs;
 import data.UserAccount;
 import org.testng.annotations.Test;
 
-public class TestLoginPage extends BaseTest {
+public class TestLogin extends BaseTest {
     @Test(priority = 0, description = "Verify that the user is not able to login with empty username and password")
     public void TC_LOG_001() {
         navigate.navigateTo(URLs.BASE_URL);
